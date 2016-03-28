@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Kit\github\MXNET\src\common\mxrtc.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\common\tblob_op_registry.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\c_api\c_api.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\c_api\c_api_error.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\c_api\c_predict_api.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\engine\engine.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\engine\naive_engine.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\engine\threaded_engine.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\engine\threaded_engine_perdevice.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\engine\threaded_engine_pooled.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\io\io.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\io\iter_csv.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\io\iter_image_recordio.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\io\iter_mnist.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\kvstore\kvstore.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\kvstore\kvstore_chana.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\kvstore\kvstore_chana_server.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\ndarray\ndarray.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\ndarray\ndarray_function.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\ndarray\unary_function.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\activation.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\batch_norm.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\block_grad.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\cast.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\concat.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\convolution.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\crop.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\cross_device_copy.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\cudnn_batch_norm.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\deconvolution.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\dropout.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\elementwise_binary_op.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\elementwise_binary_scalar_op.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\elementwise_sum.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\embedding.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\fully_connected.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\identity_attach_KL_sparse_reg.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\leaky_relu.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\lrn.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\native_op.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\ndarray_op.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\operator.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\pooling.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\regression_output.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\reshape.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\slice_channel.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\softmax_activation.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\softmax_output.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\swapaxis.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\operator\upsampling.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\optimizer\optimizer.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\optimizer\sgd.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\resource.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\storage\storage.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\symbol\graph_executor.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\symbol\graph_memory_allocator.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\symbol\static_graph.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Kit\github\MXNET\src\symbol\symbol.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Kit\github\MXNET\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{63A25B34-21C3-4F58-B3F4-166481F809A9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
