@@ -229,7 +229,8 @@ namespace mxnet
             bool read(int32_t &data) { return read_pod(data); }
             bool read(int16_t &data) { return read_pod(data); }
             bool read(int8_t &data) { return read_pod(data); }
-            bool read(double &data) { return read_pod(data); }            
+            bool read(double &data) { return read_pod(data); }
+            bool read(bool &data) { return read_pod(data); }
 
             template<typename T> bool read(const T &data)
             {
