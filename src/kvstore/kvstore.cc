@@ -41,7 +41,7 @@ KVStore* KVStore::Create(const char *type_name) {
 
           if (tname.substr(0, 9) == "dist_sync" && kv->get_rank() == 0)
           {
-              kv->SendCommandToServers(kvstore::kSyncMode, std::to_string(true));
+              kv->SendCommandToServers(kvstore::kSyncMode, std::string("\x01"));
           }
       }
 # elif MXNET_USE_DIST_KVSTORE
