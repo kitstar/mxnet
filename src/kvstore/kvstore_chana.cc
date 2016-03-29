@@ -35,6 +35,9 @@ namespace mxnet
             {                
                 ((KVStoreChanaServer *)ChaNaPSGetInstance(i))->set_controller(controller);
             }
+            sync_mode = ((KVStoreChanaServer *)ChaNaPSGetInstance(0))->get_sync_mode();
+
+            Barrier();
         }
 
         /* virtual */ void KVStoreChana::set_updater(const Updater& updater)
@@ -181,9 +184,7 @@ namespace mxnet
         }
 
         /* virtual */ void KVStoreChana::SendCommandToServers(int cmd_id, const std::string &cmd_body)
-        {
-            if (cmd_id == kSyncMode) sync_mode = true;
-            
+        {            
             ChanaCmdContxt *ctx = new ChanaCmdContxt(cmd_id, cmd_body);
             ChaNaPSControl(PS_ROLE_ALL, ctx->data, ctx->size, free_chana_cmd_callback, ctx);
             ChaNaPSWait();

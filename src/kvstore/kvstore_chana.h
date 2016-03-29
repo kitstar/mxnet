@@ -85,7 +85,7 @@ namespace mxnet
 
             void Barrier() override 
             {
-                BarrierEnter(); // Chana PSLIB
+                BarrierEnter();
             }
 
 
@@ -129,8 +129,8 @@ namespace mxnet
                 std::vector<void *>     vals;
                 std::vector<size_t>     lens;
                 size_t                  size;
-            };            
-                                   
+            };
+    
 
             /**
             * \brief cache all key partitions

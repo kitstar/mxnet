@@ -304,7 +304,9 @@ namespace mxnet
             {
                 CHECK(updater);
                 updater_ = updater;
-            }                        
+            }
+
+            inline bool get_sync_mode() { return sync_mode_; }
 
         private:            
             inline int NumWorkers()
