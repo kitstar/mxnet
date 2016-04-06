@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -56,25 +56,25 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-    <PropertyGroup>
-      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Kit\github\MXNET\build\dmlc-core\Debug\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">dmlccore.dir\Debug\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">dmlccore</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Kit\github\MXNET\build\dmlc-core\Release\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">dmlccore.dir\Release\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">dmlccore</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Kit\github\MXNET\build\dmlc-core\MinSizeRel\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">dmlccore.dir\MinSizeRel\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">dmlccore</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Kit\github\MXNET\build\dmlc-core\RelWithDebInfo\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">dmlccore.dir\RelWithDebInfo\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">dmlccore</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
-    </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Kit\github\MXNET\build\dmlc-core\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">dmlccore.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">dmlccore</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Kit\github\MXNET\build\dmlc-core\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">dmlccore.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">dmlccore</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Kit\github\MXNET\build\dmlc-core\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">dmlccore.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">dmlccore</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Kit\github\MXNET\build\dmlc-core\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">dmlccore.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">dmlccore</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>D:\Kit\lib\OpenBLAS-v0.2.14-Win64-int64\include;D:\Kit\github\MXNET\include;D:\Kit\github\MXNET\mshadow;D:\Kit\github\MXNET\dmlc-core\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -89,7 +89,7 @@
       <OpenMPSupport>true</OpenMPSupport>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PreprocessorDefinitions>_DEBUG;MSHADOW_USE_CBLAS=1;MSHADOW_USE_MKL=0;MSHADOW_USE_CUDA=0;DMLC_USE_CXX11;MSHADOW_IN_CXX11;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MXNET_EXPORTS;MXNET_USE_OPENCV=0;DMLC_USE_HDFS=0;DMLC_USE_S3=0;DMLC_USE_AZURE=0;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
@@ -118,10 +118,11 @@
       <OpenMPSupport>true</OpenMPSupport>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PreprocessorDefinitions>NDEBUG;MSHADOW_USE_CBLAS=1;MSHADOW_USE_MKL=0;MSHADOW_USE_CUDA=0;DMLC_USE_CXX11;MSHADOW_IN_CXX11;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MXNET_EXPORTS;MXNET_USE_OPENCV=0;DMLC_USE_HDFS=0;DMLC_USE_S3=0;DMLC_USE_AZURE=0;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;MSHADOW_USE_CBLAS=1;MSHADOW_USE_MKL=0;MSHADOW_USE_CUDA=0;DMLC_USE_CXX11;MSHADOW_IN_CXX11;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MXNET_EXPORTS;MXNET_USE_OPENCV=0;DMLC_USE_HDFS=0;DMLC_USE_S3=0;DMLC_USE_AZURE=0;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -151,7 +152,8 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PreprocessorDefinitions>NDEBUG;MSHADOW_USE_CBLAS=1;MSHADOW_USE_MKL=0;MSHADOW_USE_CUDA=0;DMLC_USE_CXX11;MSHADOW_IN_CXX11;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MXNET_EXPORTS;MXNET_USE_OPENCV=0;DMLC_USE_HDFS=0;DMLC_USE_S3=0;DMLC_USE_AZURE=0;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;MSHADOW_USE_CBLAS=1;MSHADOW_USE_MKL=0;MSHADOW_USE_CUDA=0;DMLC_USE_CXX11;MSHADOW_IN_CXX11;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MXNET_EXPORTS;MXNET_USE_OPENCV=0;DMLC_USE_HDFS=0;DMLC_USE_S3=0;DMLC_USE_AZURE=0;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -253,14 +255,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\config.cc"  />
-    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\data.cc"  />
-    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io.cc"  />
-    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\recordio.cc"  />
-    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io\line_split.cc"  />
-    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io\recordio_split.cc"  />
-    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io\input_split_base.cc"  />
-    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io\local_filesys.cc"  />
+    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\config.cc" />
+    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\data.cc" />
+    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io.cc" />
+    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\recordio.cc" />
+    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io\line_split.cc" />
+    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io\recordio_split.cc" />
+    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io\input_split_base.cc" />
+    <ClCompile Include="D:\Kit\github\MXNET\dmlc-core\src\io\local_filesys.cc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/Kit/github/MXNET/build/ZERO_CHECK.vcxproj">

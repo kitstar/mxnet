@@ -37,9 +37,7 @@ namespace mxnet
             public:
                 ChanaCmdContxt(int cmd_id, const std::string &cmd_body)
                 {
-                    size = sizeof(uint32_t) + sizeof(int) + cmd_body.length();
-                    assert(size <= 500 * 1024);
-
+                    size = sizeof(int) + cmd_body.length();
                     data = malloc(size);
                     binary_writer writer(data, size);
                     writer.write(cmd_id);
@@ -87,7 +85,6 @@ namespace mxnet
             {
                 BarrierEnter();
             }
-
 
             virtual void SendCommandToServers(int cmd_id,
                 const std::string& cmd_body) override;            
