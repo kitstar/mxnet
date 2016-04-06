@@ -97,7 +97,7 @@
       <OpenMPSupport>true</OpenMPSupport>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PreprocessorDefinitions>_DEBUG;MSHADOW_USE_CBLAS=1;MSHADOW_USE_MKL=0;MSHADOW_USE_CUDA=0;DMLC_USE_CXX11;MSHADOW_IN_CXX11;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MXNET_EXPORTS;MXNET_USE_OPENCV=0;MXNET_USE_DIST_KVSTORE;MXNET_USE_DIST_CHANA;CMAKE_INTDIR="Debug";mxnet_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
@@ -116,7 +116,6 @@
     <Link>
       <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;dmlc-core\Debug\dmlccore.lib;ipHlpApi.lib;ws2_32.lib;chanalib.lib;libopenblas.dll.a</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\kit\github\MXNET\chana\$(Configuration);D:\kit\lib\OpenBLAS-v0.2.14-Win64-int64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/Kit/github/MXNET/build/Debug/libmxnet.lib</ImportLibrary>
@@ -124,6 +123,7 @@
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
+      <AdditionalLibraryDirectories>D:\Kit\github\MXNET\chana\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -131,7 +131,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Kit\lib\OpenBLAS-v0.2.14-Win64-int64\include;D:\Kit\github\MXNET\include;D:\Kit\github\MXNET\mshadow;D:\Kit\github\MXNET\dmlc-core\include;D:\Kit\github\MXNET\build\ps-lite\include;D:\Kit\github\MXNET\ps-lite\include;D:\Kit\Src\protobuf\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Kit\github\MXNET\chana;D:\Kit\lib\OpenBLAS-v0.2.14-Win64-int64\include;D:\Kit\github\MXNET\include;D:\Kit\github\MXNET\mshadow;D:\Kit\github\MXNET\dmlc-core\include;D:\Kit\github\MXNET\build\ps-lite\include;D:\Kit\github\MXNET\ps-lite\include;D:\Kit\Src\protobuf\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>
@@ -141,8 +141,8 @@
       <OpenMPSupport>true</OpenMPSupport>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <PreprocessorDefinitions>NDEBUG;MSHADOW_USE_CBLAS=1;MSHADOW_USE_MKL=0;MSHADOW_USE_CUDA=0;DMLC_USE_CXX11;MSHADOW_IN_CXX11;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MXNET_EXPORTS;MXNET_USE_OPENCV=0;MXNET_USE_DIST_KVSTORE;CMAKE_INTDIR="Release";mxnet_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>NDEBUG;MSHADOW_USE_CBLAS=1;MSHADOW_USE_MKL=0;MSHADOW_USE_CUDA=0;DMLC_USE_CXX11;MSHADOW_IN_CXX11;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MXNET_EXPORTS;MXNET_USE_OPENCV=0;MXNET_USE_DIST_CHANA;CMAKE_INTDIR="Release";mxnet_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -161,8 +161,8 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;dmlc-core\Release\dmlccore.lib;ps-lite\Release\pslite.lib;ipHlpApi.lib;ws2_32.lib;D:\Kit\Src\protobuf\vsbuild\Release\libprotobuf.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;dmlc-core\Release\dmlccore.lib;ipHlpApi.lib;ws2_32.lib;chanalib.lib;libopenblas.dll.a</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Kit\github\MXNET\chana\$(Configuration);D:\kit\lib\OpenBLAS-v0.2.14-Win64-int64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/Kit/github/MXNET/build/Release/libmxnet.lib</ImportLibrary>

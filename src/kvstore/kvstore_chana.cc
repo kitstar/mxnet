@@ -226,7 +226,7 @@ namespace mxnet
                 {
                     // parition it to all servers
                     pskv.size = 0;
-# if defined(_DEBUG)
+# if !defined(NDEBUG)
                     uint64_t server_sum = 0;
 # endif
                     for (int i = 0; i < num_servers; ++i) 
@@ -235,7 +235,7 @@ namespace mxnet
                             static_cast<size_t>(static_cast<double>(size) / num_servers * (i + 1)) -
                             static_cast<size_t>(static_cast<double>(size) / num_servers * i);
                         uint64_t ps_key = get_ps_key(key, i);
-# if defined(_DEBUG)
+# if !defined(NDEBUG)
                         server_sum += ps_key % num_servers;
 # endif
                         pskv.keys.push_back(ps_key);
@@ -244,7 +244,7 @@ namespace mxnet
                         pskv.size += part_size;
                     }
                     CHECK_EQ(static_cast<size_t>(pskv.size), size);                    
-# if defined(_DEBUG)                    
+# if !defined(NDEBUG)                    
                     CHECK_LT(abs(server_sum - (num_servers - 1) * num_servers / 2.0), 1e-7);
 # endif
                 }

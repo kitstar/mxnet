@@ -49,6 +49,9 @@ namespace mxnet
             void **args,
             bool *fixed_val_size)
         {
+# if defined(KIT_PERFORMANCE_PROFILE)
+            auto start_time = std::chrono::system_clock::now();
+# endif
             // do some check
             CHECK_EQ(key_count, 1);
 
@@ -61,11 +64,19 @@ namespace mxnet
             vals[0] = stored.data().dptr_;
                         
             *fixed_val_size = true;
+# if defined(KIT_PERFORMANCE_PROFILE)
+            auto end_time = std::chrono::system_clock::now();
+            auto elapse_in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+            pull_time_in_ms += elapse_in_ms.count();
+# endif
         }
 
 
         /* virtual */ void KVStoreChanaServer::server_process_push(size_t key_count, uint64_t *keys, void **vals, size_t *valsizes)
         {
+# if defined(KIT_PERFORMANCE_PROFILE)
+            auto start_time = std::chrono::system_clock::now();
+# endif
             CHECK_EQ(key_count, 1);            
 
             uint64_t key = *keys;
@@ -115,7 +126,7 @@ namespace mxnet
                 }
             }
             else 
-            {
+            {            
                 // async push
                 exec_.Exec([this, key, &recved, &stored]()
                 {
@@ -124,7 +135,13 @@ namespace mxnet
                 });
                 
                 stored.WaitToRead();
-            }            
+            }
+
+# if defined(KIT_PERFORMANCE_PROFILE)
+            auto end_time = std::chrono::system_clock::now();
+            auto elapse_in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+            push_time_in_ms += elapse_in_ms.count();
+# endif
         }
     }
 }

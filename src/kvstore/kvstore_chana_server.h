@@ -5,6 +5,8 @@
 */
 # pragma once
 
+# define KIT_PERFORMANCE_PROFILE
+
 #include <queue>
 #include <string>
 #include <mutex>
@@ -267,12 +269,27 @@ namespace mxnet
         };
 
         
+        ChaNaPSBase * mxnet_ps_create_function(void *args);
+
+        
         class KVStoreChanaServer : public ChaNaPSBase
         {
+        private:
+            struct MergeBuf
+            {
+                MergeBuf() : count(0) { }
+                int     count;
+                NDArray array;
+            };
+
+
         public:
             KVStoreChanaServer() : sync_mode_(true)
             {
                 work_thread_ = std::unique_ptr<std::thread>(new std::thread(&Executor::Start, &exec_));
+# if defined(KIT_PERFORMANCE_PROFILE)
+                pull_time_in_ms = push_time_in_ms = 0;
+# endif
             }
 
             virtual void control(int cmd_id, void *data, const size_t len);            
@@ -309,41 +326,33 @@ namespace mxnet
 
             inline bool get_sync_mode() { return sync_mode_; }
 
-        private:            
+        private:
             inline int NumWorkers()
-            {
-                // Kit TODO: Multi worker per machine
+            {                
                 return GetMachineCount();
             }
             
             int DecodeKey(uint64_t key) 
             {
+                // No implement
                 assert(false);
             }
 
-            /**
-            * \brief user defined
-            */
-            bool sync_mode_;
-            KVStore::Controller controller_;
-            KVStore::Updater updater_;
-
-            std::unordered_map<uint64_t, NDArray> store_;
-
-
-            struct MergeBuf
-            {
-                MergeBuf() : count(0) { }
-                
-                int count;
-                NDArray array;
-            };
-            std::unordered_map<int, MergeBuf> merge_buf_;
-
-            Executor exec_;
-            std::unique_ptr<std::thread> work_thread_;
-        };
-
-        ChaNaPSBase * mxnet_ps_create_function(void *args);
+            
+        public:
+# if defined(KIT_PERFORMANCE_PROFILE)
+            int64_t pull_time_in_ms;
+            int64_t push_time_in_ms;
+# endif
+        
+        private:            
+            std::unordered_map<uint64_t, NDArray>   store_; // Model
+            std::unordered_map<int, MergeBuf>       merge_buf_; // For sync mode
+            bool                                    sync_mode_;
+            KVStore::Controller                     controller_;
+            KVStore::Updater                        updater_;                                    
+            Executor                                exec_;
+            std::unique_ptr<std::thread>            work_thread_;
+        };        
     }  // namespace kvstore
 }  // namespace mxnet
