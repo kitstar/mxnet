@@ -195,6 +195,11 @@ class KVStore {
   }
 
   /*!
+   * \brief AllReduce
+   */
+  virtual void AllReduce(const void *sendbuf, void *recvbuf, size_t elemcount, size_t elemsize, int elemtype, int op) {}
+
+  /*!
    * \brief global barrier among all worker machines
    *
    * But note that, this functions only blocks the main thread of workers until
