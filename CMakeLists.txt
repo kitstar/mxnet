@@ -5,11 +5,12 @@ project(mxnet C CXX)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/Modules)
 
 include(cmake/Utils.cmake)
-mxnet_option(USE_OPENCV  "Build with OpenCV support" ON)
+mxnet_option(USE_OPENCV  "Build with OpenCV support" OFF)
 mxnet_option(USE_OPENMP  "Build with Openmp support" ON)
-mxnet_option(USE_CUDNN   "Build with cudnn support"  ON) # one could set CUDNN_ROOT for search path
-mxnet_option(USE_CUDA    "Build with CUDA support"   ON)
+mxnet_option(USE_CUDNN   "Build with cudnn support"  OFF) # one could set CUDNN_ROOT for search path
+mxnet_option(USE_CUDA    "Build with CUDA support"   OFF)
 mxnet_option(USE_DIST_KVSTORE    "Build with DIST_KVSTORE support"   OFF)
+mxnet_option(USE_DIST_CHANA    "Build with DIST_CHANA support"   ON)
 
 
 
@@ -87,8 +88,8 @@ if(MSVC)
   foreach(flag_var
         CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
         CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
-    if(${flag_var} MATCHES "/MD")
-      string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
+    if(${flag_var} MATCHES "/MT")
+      string(REGEX REPLACE "/MT" "/MD" ${flag_var} "${${flag_var}}")
     endif(${flag_var} MATCHES "/MD")
   endforeach(flag_var)
 endif()

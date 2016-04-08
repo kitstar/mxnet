@@ -184,8 +184,8 @@ namespace mxnet
         }
 
         /* virtual */ void KVStoreChana::SendCommandToServers(int cmd_id, const std::string &cmd_body)
-        {            
-            ChanaCmdContxt *ctx = new ChanaCmdContxt(cmd_id, cmd_body);
+        {                        
+            auto ctx = new ChanaCmdContxt(cmd_id, cmd_body);                        
             ChaNaPSControl(PS_ROLE_ALL, ctx->data, ctx->size, free_chana_cmd_callback, ctx);
             ChaNaPSWait();
         }
