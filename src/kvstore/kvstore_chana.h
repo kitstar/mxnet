@@ -99,6 +99,11 @@ namespace mxnet
                 return GetMyRank();
             }
 
+			void AllReduce(const void *sendbuf, void *recvbuf, size_t elemcount, size_t elemsize, int elemtype, int op) override
+			{
+				ChaNa_AllReduce(sendbuf, recvbuf, elemcount, elemsize, elemtype, op);
+			}
+
             virtual void RunServer(const Controller& controller) override;            
 
         private:

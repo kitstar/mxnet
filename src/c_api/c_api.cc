@@ -1215,6 +1215,11 @@ int MXKVStoreGetRank(KVStoreHandle handle, int *rank) {
   API_END();
 }
 
+void MXKVAllReduce(KVStoreHandle handle, const void *sendbuf, void *recvbuf, size_t elemcount, size_t elemsize, int elemtype, int op)
+{
+	static_cast<KVStore*>(handle)->AllReduce(sendbuf, recvbuf, elemcount, elemsize, elemtype, op);
+}
+
 int MXKVStoreGetGroupSize(KVStoreHandle handle, int *size) {
   API_BEGIN();
   *size = static_cast<KVStore*>(handle)->get_group_size();
