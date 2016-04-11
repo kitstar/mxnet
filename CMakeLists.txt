@@ -90,7 +90,7 @@ if(MSVC)
         CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
     if(${flag_var} MATCHES "/MT")
       string(REGEX REPLACE "/MT" "/MD" ${flag_var} "${${flag_var}}")
-    endif(${flag_var} MATCHES "/MD")
+    endif(${flag_var} MATCHES "/MT")
   endforeach(flag_var)
 endif()
 
@@ -130,6 +130,13 @@ if(USE_DIST_KVSTORE)
 	target_link_libraries(mxnet pslite)
 	target_link_libraries(mxnet ${pslite_LINKER_LIBS})
 	include_directories(SYSTEM ${pslite_INCLUDE_DIR})
+endif()
+
+if(USE_DIST_CHANA)
+	add_definitions(-DMXNET_USE_DIST_CHANA)
+	find_package(ChaNa REQUIRED)
+	include_directories(SYSTEM ${ChaNa_INCLUDE_DIR})	
+	target_link_libraries(mxnet ${ChaNa_LIB})	
 endif()
 
 # ---[ Linter target
