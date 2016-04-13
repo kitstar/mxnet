@@ -31,20 +31,29 @@ class Executor {
    * \brief start the executor
    */
   void Start() {
-    std::unique_lock<std::mutex> lk(mu_);
+      exec_time_in_ms = 0;
+      std::unique_lock<std::mutex> lk(mu_);
     while (true) {
       cond_.wait(lk, [this]{return !queue_.empty();});
       Block blk = std::move(queue_.front());
       queue_.pop();
       lk.unlock();
 
+      auto start_time = std::chrono::system_clock::now();      
       if (blk.f) {
         blk.f(); blk.p->set_value();
       } else {
         blk.p->set_value(); break;
       }
+
+      auto end_time = std::chrono::system_clock::now();
+      auto elapse_in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+      exec_time_in_ms += elapse_in_ms.count();
+
       lk.lock();
     }
+
+    std::cout << "Executor Time: " << exec_time_in_ms / 1000.0 << "s" << std::endl;
   }
 
   /**
@@ -70,7 +79,7 @@ class Executor {
    * \brief stop the thread, threadsafe
    */
   void Stop() {
-    Exec(Func());
+    Exec(Func());    
   }
 
  private:
@@ -82,11 +91,19 @@ class Executor {
   std::queue<Block> queue_;
   std::mutex mu_;
   std::condition_variable cond_;
+
+  int64_t exec_time_in_ms;
 };
 
 class KVStoreDistServer {
  public:
   KVStoreDistServer() {
+# if defined(KIT_PERFORMANCE_PROFILE)
+      pull_time_in_ms = push_time_in_ms = 0;
+      pull_packet_count = push_packet_count = 0;
+      pull_packet_total_size_in_byte = push_packet_total_size_in_byte = 0;
+# endif
+
     using namespace std::placeholders;
     ps_server_ = new ps::KVServer<float>(0);
     static_cast<ps::SimpleApp*>(ps_server_)->set_request_handle(
@@ -97,7 +114,18 @@ class KVStoreDistServer {
   }
 
   ~KVStoreDistServer() {
-    delete ps_server_;
+      std::cout << "Server Statistics Information" << std::endl;
+      std::cout << "\tkey count : [" << store_.size() << "]" << std::endl;
+# if defined(KIT_PERFORMANCE_PROFILE)
+      std::cout << "\tpull cost time: [" << pull_time_in_ms / 1000.0 << "s]" << std::endl;
+      std::cout << "\tpush cost time: [" << push_time_in_ms / 1000.0 << "s]" << std::endl;
+      std::cout << "\tpull packet: [" << pull_packet_count << "]" << std::endl;
+      std::cout << "\tpush packet: [" << push_packet_count << "]" << std::endl;
+      std::cout << "\tpull size: [" << pull_packet_total_size_in_byte / 1024.0 / 1024 << "MB]" << std::endl;
+      std::cout << "\tpush size: [" << push_packet_total_size_in_byte / 1024.0 / 1024 << "MB]" << std::endl;
+# endif
+      
+      delete ps_server_;
   }
 
   void set_controller(const KVStore::Controller& controller) {
@@ -136,6 +164,10 @@ class KVStoreDistServer {
   void DataHandle(const ps::KVMeta& req_meta,
                   const ps::KVPairs<real_t>& req_data,
                   ps::KVServer<real_t>* server) {
+# if defined(KIT_PERFORMANCE_PROFILE)
+      auto start_time = std::chrono::system_clock::now();
+# endif
+      
     // do some check
     CHECK_EQ(req_data.keys.size(), (size_t)1);
     if (req_meta.push) {
@@ -155,6 +187,12 @@ class KVStoreDistServer {
       TBlob recv_blob((real_t*)req_data.vals.data(), // NOLINT(*)
                       dshape, cpu::kDevMask);
       NDArray recved = NDArray(recv_blob, 0);
+
+# if defined(KIT_PERFORMANCE_PROFILE)
+      ++push_packet_count;
+      push_packet_total_size_in_byte += dshape.Size() * sizeof(real_t);
+# endif
+
       if (stored.is_none()) {
         // initialization
         stored = NDArray(dshape, Context());
@@ -200,6 +238,12 @@ class KVStoreDistServer {
         server->Response(req_meta);
         stored.WaitToRead();
       }
+
+# if defined(KIT_PERFORMANCE_PROFILE)
+      auto end_time = std::chrono::system_clock::now();
+      auto elapse_in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);      
+      push_time_in_ms += elapse_in_ms.count();
+# endif
     } else {
       // pull
       ps::KVPairs<real_t> response;
@@ -209,6 +253,15 @@ class KVStoreDistServer {
       response.lens = {len};
       response.vals.CopyFrom(static_cast<const float*>(stored.data().dptr_), len);
       server->Response(req_meta, response);
+
+# if defined(KIT_PERFORMANCE_PROFILE)
+      ++pull_packet_count;
+      pull_packet_total_size_in_byte += len * sizeof(real_t);      
+
+      auto end_time = std::chrono::system_clock::now();
+      auto elapse_in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+      pull_time_in_ms += elapse_in_ms.count();
+# endif
     }
   }
 
@@ -235,6 +288,15 @@ class KVStoreDistServer {
   Executor exec_;
 
   ps::KVServer<float>* ps_server_;
+
+# if defined(KIT_PERFORMANCE_PROFILE)
+  int64_t pull_time_in_ms;
+  int64_t push_time_in_ms;
+  uint64_t pull_packet_count;
+  uint64_t push_packet_count;
+  size_t pull_packet_total_size_in_byte;
+  size_t push_packet_total_size_in_byte;
+# endif
 };
 
 

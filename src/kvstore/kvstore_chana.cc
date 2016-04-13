@@ -1,3 +1,5 @@
+# if defined(MXNET_USE_DIST_CHANA)
+
 # include "kvstore_chana.h"
 # include "windows.h"
 
@@ -36,6 +38,15 @@ namespace mxnet
                 ((KVStoreChanaServer *)ChaNaPSGetInstance(i))->set_controller(controller);
             }
             sync_mode = ((KVStoreChanaServer *)ChaNaPSGetInstance(0))->get_sync_mode();
+
+            if (sync_mode == true)
+            {
+                LG << "Running Kvstore ChaNa on " << get_group_size() << " at Sync mode.";
+            }
+            else
+            {
+                LG << "Running Kvstore ChaNa on " << get_group_size() << " at Async mode.";
+            }
 
             Barrier();
         }
@@ -253,3 +264,5 @@ namespace mxnet
         }
     }
 }
+
+# endif

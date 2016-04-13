@@ -5,8 +5,6 @@
 */
 # pragma once
 
-# define KIT_PERFORMANCE_PROFILE
-
 #include <queue>
 #include <string>
 #include <mutex>
@@ -37,6 +35,7 @@ namespace mxnet
             */
             void Start()
             {
+                exec_time_in_ms = 0;
                 std::unique_lock<std::mutex> lk(mu_);
                 while (true)
                 {
@@ -45,6 +44,7 @@ namespace mxnet
                     queue_.pop();
                     lk.unlock();
 
+                    auto start_time = std::chrono::system_clock::now();
                     if (blk.f)
                     {
                         blk.f();
@@ -55,8 +55,14 @@ namespace mxnet
                         blk.p->set_value(); 
                         break;
                     }
+
+                    auto end_time = std::chrono::system_clock::now();
+                    auto elapse_in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+                    exec_time_in_ms += elapse_in_ms.count();
                     lk.lock();
                 }
+
+                std::cout << "Executor Time: " << exec_time_in_ms / 1000.0 << "s" << std::endl;
             }
 
             /**
@@ -98,6 +104,8 @@ namespace mxnet
             std::queue<Block> queue_;
             std::mutex mu_;
             std::condition_variable cond_;
+
+            int64_t exec_time_in_ms;
         };
 
 
@@ -284,11 +292,13 @@ namespace mxnet
 
 
         public:
-            KVStoreChanaServer() : sync_mode_(true)
+            KVStoreChanaServer() : sync_mode_(false)
             {
                 work_thread_ = std::unique_ptr<std::thread>(new std::thread(&Executor::Start, &exec_));
 # if defined(KIT_PERFORMANCE_PROFILE)
                 pull_time_in_ms = push_time_in_ms = 0;
+                pull_packet_count = push_packet_count = 0;
+                pull_packet_total_size_in_byte = push_packet_total_size_in_byte = 0;
 # endif
             }
 
@@ -343,6 +353,10 @@ namespace mxnet
 # if defined(KIT_PERFORMANCE_PROFILE)
             int64_t pull_time_in_ms;
             int64_t push_time_in_ms;
+            uint64_t pull_packet_count;
+            uint64_t push_packet_count;
+            size_t pull_packet_total_size_in_byte;
+            size_t push_packet_total_size_in_byte;
 # endif
         
         private:            

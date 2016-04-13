@@ -11,6 +11,8 @@
 #include <functional>
 #include "./ndarray.h"
 
+# define KIT_PERFORMANCE_PROFILE
+
 namespace mxnet {
 /*!
  * \brief distributed key-value store

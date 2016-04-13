@@ -1,3 +1,5 @@
+# if defined(MXNET_USE_DIST_CHANA)
+
 # include "kvstore_chana_server.h"
 
 namespace mxnet
@@ -25,6 +27,16 @@ namespace mxnet
 
                 case (kStopServer) :
                     exec_.Stop();
+                    std::cout << "Server Statistics Information" << std::endl;
+                    std::cout << "\tkey count : [" << store_.size() << "]" << std::endl;
+# if defined(KIT_PERFORMANCE_PROFILE)
+                    std::cout << "\tpull cost time: [" << pull_time_in_ms / 1000.0 << "s]" << std::endl;
+                    std::cout << "\tpush cost time: [" << push_time_in_ms / 1000.0 << "s]" << std::endl;
+                    std::cout << "\tpull packet: [" << pull_packet_count << "]" << std::endl;
+                    std::cout << "\tpush packet: [" << push_packet_count << "]" << std::endl;
+                    std::cout << "\tpull size: [" << pull_packet_total_size_in_byte / 1024.0 / 1024 << "MB]" << std::endl;
+                    std::cout << "\tpush size: [" << push_packet_total_size_in_byte / 1024.0 / 1024 << "MB]" << std::endl;
+# endif
                     break;
 
                 case (kSyncMode) :
@@ -50,6 +62,7 @@ namespace mxnet
             bool *fixed_val_size)
         {
 # if defined(KIT_PERFORMANCE_PROFILE)
+            ++pull_packet_count;            
             auto start_time = std::chrono::system_clock::now();
 # endif
             // do some check
@@ -65,6 +78,7 @@ namespace mxnet
                         
             *fixed_val_size = true;
 # if defined(KIT_PERFORMANCE_PROFILE)
+            pull_packet_total_size_in_byte += val_sizes[0];
             auto end_time = std::chrono::system_clock::now();
             auto elapse_in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
             pull_time_in_ms += elapse_in_ms.count();
@@ -75,6 +89,8 @@ namespace mxnet
         /* virtual */ void KVStoreChanaServer::server_process_push(size_t key_count, uint64_t *keys, void **vals, size_t *valsizes)
         {
 # if defined(KIT_PERFORMANCE_PROFILE)
+            ++push_packet_count;
+            push_packet_total_size_in_byte += *valsizes;
             auto start_time = std::chrono::system_clock::now();
 # endif
             CHECK_EQ(key_count, 1);            
@@ -145,3 +161,5 @@ namespace mxnet
         }
     }
 }
+
+#endif
