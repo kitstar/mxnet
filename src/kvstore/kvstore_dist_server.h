@@ -31,7 +31,6 @@ class Executor {
    * \brief start the executor
    */
   void Start() {
-      exec_time_in_ms = 0;
       std::unique_lock<std::mutex> lk(mu_);
     while (true) {
       cond_.wait(lk, [this]{return !queue_.empty();});
@@ -39,21 +38,15 @@ class Executor {
       queue_.pop();
       lk.unlock();
 
-      auto start_time = std::chrono::system_clock::now();      
+      auto start_time = std::chrono::system_clock::now();
       if (blk.f) {
         blk.f(); blk.p->set_value();
       } else {
         blk.p->set_value(); break;
       }
-
-      auto end_time = std::chrono::system_clock::now();
-      auto elapse_in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-      exec_time_in_ms += elapse_in_ms.count();
-
+      
       lk.lock();
     }
-
-    std::cout << "Executor Time: " << exec_time_in_ms / 1000.0 << "s" << std::endl;
   }
 
   /**
@@ -91,8 +84,6 @@ class Executor {
   std::queue<Block> queue_;
   std::mutex mu_;
   std::condition_variable cond_;
-
-  int64_t exec_time_in_ms;
 };
 
 class KVStoreDistServer {
