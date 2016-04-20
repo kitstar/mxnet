@@ -116,7 +116,7 @@ namespace mxnet
                 auto push_to_servers = [this, key, merged](RunContext rctx, Engine::CallbackOnComplete cb)
                 {
                     // convert to ps keys
-                    size_t size = merged.shape().Size();
+                    size_t size = merged.shape().Size();                    
 
                     // do push
                     auto data = static_cast<real_t *>(merged.data().dptr_);
@@ -173,8 +173,7 @@ namespace mxnet
                     // convert to ps keys                    
                     auto &pskv = EncodeKey(key, data, size);
 
-                    // issue pull, false means no delete
-                    
+                    // issue pull
                     auto ctx = new ChanaCallbackContext;
                     ctx->cb = cb;
                     ChaNaPSPull(pskv.keys.size(), pskv.keys.data(), pskv.vals.data(), pskv.lens.data(), ctx);
