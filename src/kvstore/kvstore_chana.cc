@@ -23,16 +23,29 @@ namespace mxnet
         KVStoreChana::KVStoreChana(const char *machine_list_for_chana, const int _ps_per_machine) : num_servers(0), id_bit(0), ps_per_machine(_ps_per_machine), sync_mode(false)
         {
             bool use_rdma = false;
-            
-            // printf("!!!!!!!!!!!!!!!!!!!!!!! Kit: Start a chana worker! Wait for Debug.\n");
+                        
             std::cout << "pid = " << ::GetCurrentProcessId() << std::endl;
             // getchar();
 
-            auto ret = getenv("CHANA_USE_RDMA");
-            if (ret != nullptr)
-            {                
-                std::transform(ret, ret + strlen(ret), ret, [](char c) { return std::tolower(c); });                
-                use_rdma = strcmp(ret, "true") == 0;
+            auto use_rdma_str = getenv("CHANA_USE_RDMA");
+            if (use_rdma_str != nullptr)
+            {
+                std::string ret(use_rdma_str);                
+                std::transform(ret.begin(), ret.end(), ret.begin(), std::tolower);
+                use_rdma = (ret == "true");
+            }
+
+            auto chana_config = getenv("CHANA_CONFIG_FILE");
+            if (chana_config != nullptr)
+            {
+                std::string config(chana_config);                
+                config = "config=" + config;
+                const char *argv[] = { config.c_str() };
+                chana_initialize(1, argv);
+            }
+            else
+            {
+                chana_initialize(0, nullptr);
             }
 
             CreateParameterServer(machine_list_for_chana, ps_per_machine, use_rdma, mxnet_ps_create_function, nullptr);
