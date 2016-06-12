@@ -24,8 +24,7 @@ namespace mxnet
         {
             bool use_rdma = false;
                         
-            std::cout << "pid = " << ::GetCurrentProcessId() << std::endl;
-            // getchar();
+            std::cout << "pid = " << ::GetCurrentProcessId() << std::endl;            
 
             auto use_rdma_str = getenv("CHANA_USE_RDMA");
             if (use_rdma_str != nullptr)
