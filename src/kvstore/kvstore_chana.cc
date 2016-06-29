@@ -32,21 +32,13 @@ namespace mxnet
                 std::string ret(use_rdma_str);                
                 std::transform(ret.begin(), ret.end(), ret.begin(), std::tolower);
                 use_rdma = (ret == "true");
-            }
+            }            
 
-            auto chana_config = getenv("CHANA_CONFIG_FILE");
-            if (chana_config != nullptr)
-            {
-                std::string config(chana_config);                
-                config = "config=" + config;
-                const char *argv[] = { config.c_str() };
-                chana_initialize(1, argv);
-            }
-            else
+            if (chana_is_initialized() == false)
             {
                 chana_initialize(0, nullptr);
             }
-
+            
             CreateParameterServer(machine_list_for_chana, ps_per_machine, use_rdma, mxnet_ps_create_function, nullptr);
 
             num_servers = GetMachineCount() * ps_per_machine;
