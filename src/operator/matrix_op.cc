@@ -9,7 +9,9 @@
 namespace mxnet {
 namespace op {
 DMLC_REGISTER_PARAMETER(TransposeParam);
+DMLC_REGISTER_PARAMETER(ExpandDimParam);
 DMLC_REGISTER_PARAMETER(SimpleCropParam);
+DMLC_REGISTER_PARAMETER(SliceParam);
 DMLC_REGISTER_PARAMETER(FlipParam);
 }  // op
 }  // mxnet
