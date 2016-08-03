@@ -10,11 +10,8 @@ mxnet_option(USE_OPENMP  "Build with Openmp support" ON)
 mxnet_option(USE_CUDNN   "Build with cudnn support"  OFF) # one could set CUDNN_ROOT for search path
 mxnet_option(USE_CUDA    "Build with CUDA support"   OFF)
 mxnet_option(USE_DIST_KVSTORE    "Build with DIST_KVSTORE support"   OFF)
-<<<<<<< HEAD
 mxnet_option(USE_DIST_CHANA    "Build with DIST_CHANA support"   ON)
-=======
 mxnet_option(USE_PLUGINS_WARPCTC	"Use WARPCTC Plugins" OFF)
->>>>>>> 5f278803303d5019b76c5aaecfd8c8f27758558e
 
 SET(EXTRA_OPERATORS "" CACHE PATH "EXTRA OPERATORS PATH")
 
