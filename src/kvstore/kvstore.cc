@@ -30,8 +30,8 @@ namespace mxnet {
             tname == "local_allreduce_device") {
             kv = new kvstore::KVStoreDevice(true);
         }
-        else if (tname == "dist_async" ||
-            tname == "dist_sync" ||
+        else if (tname.substr(0, 10) == "dist_async" ||
+            tname.substr(0, 9) == "dist_sync" ||
             tname == "dist_sync_device" ||
             tname == "dist") {
 # if MXNET_USE_DIST_CHANA
